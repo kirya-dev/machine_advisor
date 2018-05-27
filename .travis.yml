@@ -1,0 +1,27 @@
+language: python
+python:
+  - "2.7"
+  - "3.5"
+
+services:
+  - mysql
+
+env:
+  global:
+    - BACKEND_CONFIG=ci/config.yml
+
+cache: pip
+
+install:
+  - pip install -U -r requirements.txt -r test-requirements.txt
+
+before_script:
+  - mysql -e 'CREATE DATABASE backend_test;'
+  - python manage.py db upgrade
+
+script:
+  - flake8 --exit-zero backend
+  - py.test -s --cov=backend tests
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
