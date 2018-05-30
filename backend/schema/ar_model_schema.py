@@ -12,7 +12,7 @@ class ARModelCoeffSchema(ma.ModelSchema):
 class ARModelSchema(ma.ModelSchema):
     class Meta:
         model = ARModel
-        fields = ('id', 'rank', 'error', 'endog_samples', 'predict_samples', 'created')
+        fields = ('id', 'rank', 'error', 'created')
 
 
 ar_model_schema = ARModelSchema()

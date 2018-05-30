@@ -15,3 +15,6 @@ class Device(BaseMixin, db.Model):
         return self.signals \
             .order_by(Signal.type_signal_id, Signal.created.desc()) \
             .distinct(Signal.type_signal_id)
+
+    def __str__(self):
+        return '#{0} {1}'.format(self.id, self.name)

@@ -1,5 +1,6 @@
 from ..app import db
 from .base_mixin import BaseMixin
+from .signal_sample import SignalSample
 
 
 class Signal(BaseMixin, db.Model):
@@ -14,6 +15,28 @@ class Signal(BaseMixin, db.Model):
 
     def primary_ar_model(self):
         return self.ar_models.first()
+
+    @property
+    def endog_samples(self):
+        data = self.signal_samples\
+            .filter(SignalSample.is_predict == False)\
+            .all()
+        return [x.value for x in data]
+
+    @property
+    def predict_samples(self):
+        data = self.signal_samples\
+            .filter(SignalSample.is_predict == True)\
+            .all()
+        return [x.value for x in data]
+
+    def save_predict_samples(self, rawData):
+        # remove old
+        self.signal.filter(SignalSample.is_predict == True).delete()
+        # add new
+        for x in rawData:
+            self.signal_samples.append(SignalSample(x, True))
+        db.session.commit()
 
     def __str__(self):
         return 'Cигнал {1} №{0}'.format(self.id, self.type_signal.name)

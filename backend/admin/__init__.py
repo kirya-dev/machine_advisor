@@ -1,4 +1,4 @@
-from flask_admin import Admin
+from flask_admin import Admin, AdminIndexView, expose
 
 from ..models.ar_model import ARModel
 from ..models.ar_model_coeff import ARModelCoeff
@@ -16,8 +16,15 @@ from .ar_model_view import ARModelView
 from .ar_model_coeff_view import ARModelCoeffView
 from .device_view import DeviceView
 
-
-admin = Admin(app, name='Admin', template_mode='bootstrap3')
+admin = Admin(
+    app,
+    template_mode='bootstrap3',
+    index_view=AdminIndexView(
+        name='Автомат-советчик',
+        template='admin/home.html',
+        url='/admin'
+    )
+)
 
 admin.add_view(TypeSignalView(TypeSignal, db.session))
 admin.add_view(SignalView(Signal, db.session))

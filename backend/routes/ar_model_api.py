@@ -25,7 +25,7 @@ def analyzeModel(id):
     if model is None:
         raise Exception('Model not found')
 
-    ar_signal = model.endog_samples
+    ar_signal = model.signal.endog_samples
     signals_len = len(ar_signal)
     if signals_len < 5:
         raise Exception('Too few "{0}" Endog Data'.format(signals_len))
@@ -35,7 +35,7 @@ def analyzeModel(id):
 
     predict_res = ar_res.predict(signals_len, signals_len + 30)
 
-    model.save_predict_samples(predict_res)
+    model.signal.save_predict_samples(predict_res)
 
     return jsonify({
         'signals': ar_signal,
