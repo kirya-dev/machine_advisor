@@ -13,8 +13,9 @@ class Signal(BaseMixin, db.Model):
     type_signal_id = db.Column(db.ForeignKey('type_signals.id'), nullable=False)
     type_signal = db.relationship('TypeSignal', backref=db.backref(__tablename__, lazy='dynamic'))
 
+    @property
     def primary_ar_model(self):
-        return self.ar_models.first()
+        return self.ar_models.first()  # TODO
 
     @property
     def endog_samples(self):
