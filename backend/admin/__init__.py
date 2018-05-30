@@ -1,6 +1,13 @@
 from flask_admin import Admin
-from backend import app
-from backend.app import db
+
+from ..models.ar_model import ARModel
+from ..models.ar_model_coeff import ARModelCoeff
+from ..models.device import Device
+from ..models.signal import Signal
+from ..models.signal_sample import SignalSample
+from ..models.type_signal import TypeSignal
+from .. import app
+from ..app import db
 
 from .type_signal_view import TypeSignalView
 from .signal_view import SignalView
@@ -9,7 +16,6 @@ from .ar_model_view import ARModelView
 from .ar_model_coeff_view import ARModelCoeffView
 from .device_view import DeviceView
 
-from ..models import TypeSignal, Signal, SignalSample, ARModel, ARModelCoeff, Device
 
 admin = Admin(app, name='Admin', template_mode='bootstrap3')
 

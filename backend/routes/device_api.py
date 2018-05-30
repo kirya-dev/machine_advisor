@@ -1,5 +1,5 @@
+from ..models.device import Device
 from ..app import app
-from ..models import Device
 from ..schema.device_schema import device_schema, devices_schema
 
 

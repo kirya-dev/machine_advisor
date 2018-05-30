@@ -1,5 +1,4 @@
 from ..app import db
-from . import Signal
 from .base_mixin import BaseMixin
 
 
@@ -9,7 +8,7 @@ class SignalSample(BaseMixin, db.Model):
     is_predict = db.Column(db.Boolean, nullable=False, default=False)
 
     signal_id = db.Column(db.ForeignKey('signals.id'), nullable=False)
-    signal = db.relationship(Signal, backref=db.backref(__tablename__, lazy='dynamic'))
+    signal = db.relationship('Signal', backref=db.backref(__tablename__, lazy='dynamic'))
 
     def __init__(self, value=0, is_predict=False):
         self.value = value

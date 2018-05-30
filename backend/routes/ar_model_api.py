@@ -2,8 +2,8 @@ from flask import jsonify
 
 from statsmodels.tsa.ar_model import AR
 
+from ..models.ar_model import ARModel
 from ..app import app
-from ..models import ARModel
 from ..schema.ar_model_schema import ar_model_schema, ar_models_schema
 
 
@@ -25,7 +25,7 @@ def analyzeModel(id):
     if model is None:
         raise Exception('Model not found')
 
-    ar_signal = model.endog_samples()
+    ar_signal = model.endog_samples
     signals_len = len(ar_signal)
     if signals_len < 5:
         raise Exception('Too few "{0}" Endog Data'.format(signals_len))

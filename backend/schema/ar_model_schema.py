@@ -1,5 +1,6 @@
-from backend.app import ma
-from backend.models import ARModel, Signal, ARModelCoeff
+from ..app import ma
+from ..models.ar_model import ARModel
+from ..models.ar_model_coeff import ARModelCoeff
 
 
 class ARModelCoeffSchema(ma.ModelSchema):
@@ -8,18 +9,10 @@ class ARModelCoeffSchema(ma.ModelSchema):
         fields = ('id', 'value')
 
 
-class SignalSchema(ma.ModelSchema):
-    class Meta:
-        model = Signal
-        fields = ('id', 'created', 'comment')
-
-
 class ARModelSchema(ma.ModelSchema):
     class Meta:
         model = ARModel
-        fields = ('id', 'rank', 'error', 'signal', 'endog_samples', 'predict_samples', 'created')
-
-    signal = ma.Nested(SignalSchema)
+        fields = ('id', 'rank', 'error', 'endog_samples', 'predict_samples', 'created')
 
 
 ar_model_schema = ARModelSchema()
