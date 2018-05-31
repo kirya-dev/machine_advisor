@@ -1,6 +1,6 @@
-from .signal import Signal
 from ..app import db
 from .base_mixin import BaseMixin
+from .signal import Signal
 
 
 class Device(BaseMixin, db.Model):
@@ -8,6 +8,16 @@ class Device(BaseMixin, db.Model):
     name = db.Column(db.String(255), nullable=False)
     comment = db.Column(db.Text, nullable=False)
     status = db.Column(db.Float, nullable=False)
+
+    def estimateSignals(self):
+        for signal in self.actual_signals():
+            ar_model = signal.primary_ar_model()
+            if ar_model is not None:
+                ar_model.estimate()
+            else:
+                raise Exception('Signal "{0}" has no ARModel. Please Add in Admin.'.format(signal))
+
+        db.session.commit()
 
     def actual_signals(self):
         # Get Last Actual signal by created time

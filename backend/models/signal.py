@@ -33,11 +33,10 @@ class Signal(BaseMixin, db.Model):
 
     def save_predict_samples(self, rawData):
         # remove old
-        self.signal.filter(SignalSample.is_predict == True).delete()
+        self.signal_samples.filter(SignalSample.is_predict == True).delete()
         # add new
         for x in rawData:
             self.signal_samples.append(SignalSample(x, True))
-        db.session.commit()
 
     def __str__(self):
         return 'Cигнал {1} №{0}'.format(self.id, self.type_signal.name)
