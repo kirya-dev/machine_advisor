@@ -11,7 +11,7 @@ class SignalSample(BaseMixin, db.Model):
     signal = db.relationship('Signal', backref=db.backref(__tablename__, lazy='dynamic'))
 
     def __init__(self, value=0, is_predict=False):
-        self.value = value
+        self.value = round(value, 4)
         self.is_predict = is_predict
 
     def __str__(self):

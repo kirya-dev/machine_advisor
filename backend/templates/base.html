@@ -1,0 +1,34 @@
+<html>
+<head>
+    <title>Автомат-советчик пронозируемого ТО СФО ЖД</title>
+    {% block head %}
+    <meta content="Разработчик: Матасов Кирилл">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/static/css/ghpages-materialize.min.css">
+    <link rel="stylesheet" href="/static/fonts/material-icons.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    {% endblock %}
+</head>
+<body class="grey lighten-5">
+    <nav class="top-nav">
+        <div class="container">
+            <div class="nav-wrapper">
+                <h1 class="header">{% block title %}Автомат-советчик{% endblock %}</h1>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %}
+            <!-- None -->
+        {% endblock %}
+        <div class="divider"></div>
+        <footer>
+            <p>© Разработчик Матасов Кирилл (kirya-dev) 2018</p>
+        </footer>
+
+    </div>
+    {% block scripts %}
+    <script src="/static/js/libs/materialize.min.js"></script>
+    {% endblock %}
+</body>
+</html>

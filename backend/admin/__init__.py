@@ -1,3 +1,4 @@
+from flask import render_template
 from flask_admin import Admin, AdminIndexView, expose
 
 from ..models.ar_model import ARModel
@@ -20,17 +21,17 @@ admin = Admin(
     app,
     template_mode='bootstrap3',
     index_view=AdminIndexView(
-        name='Автомат-советчик',
+        name='About',
         template='admin/home.html',
         url='/admin'
     )
 )
 
-admin.add_view(TypeSignalView(TypeSignal, db.session))
-admin.add_view(SignalView(Signal, db.session))
-admin.add_view(SignalSampleView(SignalSample, db.session))
+admin.add_view(TypeSignalView(TypeSignal, db.session, category='Signals'))
+admin.add_view(SignalView(Signal, db.session, category='Signals'))
+admin.add_view(SignalSampleView(SignalSample, db.session, category='Signals'))
 
-admin.add_view(ARModelView(ARModel, db.session))
-admin.add_view(ARModelCoeffView(ARModelCoeff, db.session))
+admin.add_view(ARModelView(ARModel, db.session, category='Models'))
+admin.add_view(ARModelCoeffView(ARModelCoeff, db.session, category='Models'))
 
 admin.add_view(DeviceView(Device, db.session))

@@ -7,14 +7,14 @@ from ..schema.device_schema import device_schema, devices_schema
 
 @app.route('/api/devices')
 def devices():
-    all = Device.query.all()
-    return devices_schema.jsonify(all)
+    _devices = Device.query.order_by(Device.created.asc()).all()
+    return devices_schema.jsonify(_devices)
 
 
 @app.route('/api/device/<int:id>')
 def device(id):
-    obj = Device.query.get(id)
-    return device_schema.jsonify(obj)
+    _device = Device.query.get(id)
+    return device_schema.jsonify(_device)
 
 
 @app.route('/api/device/<int:id>/analyze')
@@ -23,6 +23,6 @@ def analyzeDevice(id):
     if _device is None:
         raise Exception('Device not found')
 
-    _device.estimateSignals()
+    _device.estimate_signals()
 
     return jsonify({'status': 200})

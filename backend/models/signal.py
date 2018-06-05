@@ -19,8 +19,10 @@ class Signal(BaseMixin, db.Model):
 
     @property
     def endog_samples(self):
+
         data = self.signal_samples\
-            .filter(SignalSample.is_predict == False)\
+            .filter(SignalSample.is_predict == False) \
+            .order_by(SignalSample.created.asc()) \
             .all()
         return [x.value for x in data]
 

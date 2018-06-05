@@ -7,11 +7,11 @@ class Device(BaseMixin, db.Model):
     __tablename__ = 'devices'
     name = db.Column(db.String(255), nullable=False)
     comment = db.Column(db.Text, nullable=False)
-    status = db.Column(db.Float, nullable=False)
+    status = db.Column(db.Float, nullable=False, default=0)
 
-    def estimateSignals(self):
+    def estimate_signals(self):
         for signal in self.actual_signals():
-            ar_model = signal.primary_ar_model()
+            ar_model = signal.primary_ar_model
             if ar_model is not None:
                 ar_model.estimate()
             else:
